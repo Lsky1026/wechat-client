@@ -1,0 +1,22 @@
+<view class="time-line-container">
+    <!-- 各个时间点 -->
+    <view class="time-line-item" wx:for="{{list}}" wx:for-index="tarIndex" wx:key="{{item}}">
+        <view class="items left animated fadeInLeft" style="-webkit-animation-delay: {{tarIndex * 0.2}}s; animation-delay: {{tarIndex * 0.2}}s;" data-tar="{{tarIndex % 2 == 0 ? item : ''}}" bindtap="jumpTo">
+            <text class="time-record">{{tarIndex % 2 == 0 ? item : ''}}</text>
+        </view>
+        <view class="items center">
+            <view class="item-line top-line">
+                <view class="time-line"></view>
+            </view>
+            <view class="item-line center-dot">
+                <view class="time-dot"></view>
+            </view>
+            <view class="item-line bottom-line">
+                <view class="time-line"></view>
+            </view>
+        </view>
+        <view class="items right animated fadeInRight" style="-webkit-animation-delay: {{tarIndex * 0.2}}s; animation-delay: {{tarIndex * 0.2}}s;" data-tar="{{tarIndex % 2 != 0 ? item : ''}}" bindtap="jumpTo">
+            <text class="time-record">{{tarIndex % 2 != 0 ? item : ''}}</text>
+        </view>
+    </view>
+</view>

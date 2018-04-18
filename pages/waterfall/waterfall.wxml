@@ -1,0 +1,17 @@
+<scroll-view scroll-y="true" class="scroll-box" bindscrolltolower="scrolltolowerFun">
+    <view class="scroll-container">
+        <view class="scroll-ul-box">
+            <view wx:for="{{leftImageArr}}" wx:key="item.id">
+                <image class="sroll-image" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage"></image>
+            </view>
+        </view>
+        <view class="scroll-ul-box">
+            <view wx:for="{{rightImageArr}}" wx:key="item.id">
+                <image class="sroll-image" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage"></image>
+            </view>
+        </view>
+    </view>
+    <view class="loading-block"  hidden="{{!lock}}">
+        <image src="../../images/loadding.gif" class="image-loading"></image>
+    </view>
+</scroll-view>
