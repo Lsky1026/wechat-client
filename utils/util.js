@@ -22,6 +22,12 @@ var showBusy = text => wx.showToast({
     duration: 10000
 })
 
+var showTip = text => wx.showToast({
+    title: text,
+    icon: 'success',
+    duration: 20000
+});
+
 // 显示成功提示
 var showSuccess = text => wx.showToast({
     title: text,
@@ -81,4 +87,4 @@ var isEmpty = (data) => {
     return false;
 };
 
-module.exports = { formatTime, showBusy, showSuccess, showModel, getType, deepCopy, isEmpty }
+module.exports = { formatTime, showBusy, showTip, showSuccess, showModel, getType, deepCopy, isEmpty }

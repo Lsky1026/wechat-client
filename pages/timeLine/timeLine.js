@@ -20,11 +20,25 @@ Page({
         qcloud.login({
             success(result) {
                 if (result) {
-                    util.showSuccess('登录成功');
-                    that.setData({
-                        userInfo: result,
-                        logged: true
-                    });
+                    if(result['type'] == 'me'){
+                        util.showModel('欢迎回来', '帅帅的冬瓜');
+                        that.setData({
+                            userInfo: result['data'],
+                            logged: true
+                        });
+                    }else if(result['type'] == 'love'){
+                        util.showModel('终于回来了', '冬瓜的小仙女');
+                        that.setData({
+                            userInfo: result['data'],
+                            logged: true
+                        });
+                    }else{
+                        util.showSuccess('登录成功');
+                        that.setData({
+                            userInfo: result,
+                            logged: true
+                        });
+                    }
                     that.getFolder();
                 } else {
                     // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
@@ -32,11 +46,25 @@ Page({
                         url: config.service.requestUrl,
                         login: true,
                         success(result) {
-                            util.showSuccess('登录成功');
-                            that.setData({
-                                userInfo: result.data.data,
-                                logged: true
-                            });
+                            if(result['data']['data']['openId'] == config['limit']['me']){
+                                util.showModel('欢迎回来', '帅帅的冬瓜');
+                                that.setData({
+                                    userInfo: result.data.data,
+                                    logged: true
+                                });
+                            }else if(result['data']['data']['openId'] == config['limit']['love']){
+                                util.showModel('终于回来了', '冬瓜的小仙女');
+                                that.setData({
+                                    userInfo: result['data']['data'],
+                                    logged: true
+                                });
+                            }else{
+                                util.showSuccess('登录成功');
+                                that.setData({
+                                    userInfo: result.data.data,
+                                    logged: true
+                                });
+                            }
                             that.getFolder();
                         },
 

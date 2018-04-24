@@ -1,6 +1,7 @@
 var utils = require('./utils');
 var constants = require('./constants');
 var Session = require('./session');
+var config = require('../../../config');
 
 /***
  * @class
@@ -108,8 +109,17 @@ var login = function login(options) {
                 if (data && data.code === 0 && data.data.skey) {
                     var res = data.data
                     if (res.userinfo) {
-                        Session.set(res.skey);
-                        options.success(userInfo);
+                        if(res['userinfo']['openId'] == config['limit']['me']){
+                            Session.set(res.skey);
+                            options.success({'type': 'me', 'data': userInfo});
+                        }else if(res['userinfo']['openId'] == config['limit']['love']) {
+                            Session.set(res.skey);
+                            options.success({'type': 'love', 'data': userInfo});
+                        }else{
+                            var errorMessage = '登录失败(权限问题)：您暂无权限登录该小程序！';
+                            var noSessionError = new LoginError(constants.ERR_LOGIN_FAILED, errorMessage);
+                            options.fail(noSessionError);
+                        }
                     } else {
                         var errorMessage = '登录失败(' + data.error + ')：' + (data.message || '未知错误');
                         var noSessionError = new LoginError(constants.ERR_LOGIN_SESSION_NOT_RECEIVED, errorMessage);
