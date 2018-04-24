@@ -79,13 +79,13 @@ Page({
              */
             if(leftHei == rightHei || leftHei < rightHei){
                 leftList.push({
-                    src: config.service.imageAddr + '/' + that.data.dir + '/' + obj.name,
+                    src: config.service.imageAddr + '/' + that.data.dir + '/JPEG/' + obj.name,
                     height: scaleHei
                 });
                 leftHei += scaleHei;
             }else if(leftHei > rightHei){
                 rightList.push({
-                    src: config.service.imageAddr + '/' + that.data.dir + '/' + obj.name,
+                    src: config.service.imageAddr + '/' + that.data.dir + '/JPEG/' + obj.name,
                     height: scaleHei
                 });
                 rightHei += scaleHei;
