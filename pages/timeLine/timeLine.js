@@ -64,6 +64,10 @@ Page({
                 });
             }
         });
+
+        wx.setNavigationBarTitle({
+            'title': 'Our time'
+        });
     },
     getFolder: function () {
         let that = this;

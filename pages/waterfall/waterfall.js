@@ -56,6 +56,10 @@ Page({
         };
 
         wx.request(options);
+
+        wx.setNavigationBarTitle({
+            'title': opts.dir
+        });
     },
     handleImageList: function (optsW, list) {
         let that = this;
