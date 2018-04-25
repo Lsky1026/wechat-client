@@ -9,13 +9,17 @@ Page({
         width: 0,
         logged: false,
         userInfo: {},
-        other: false
+        other: false,
+        tipFlag: false,
+        tipTitle: '',
+        tipMsg: ''
     },
     onLoad: function () {
         if (this.data.logged) return;
 
         util.showBusy('正在登录');
-        var that = this;
+        var that = this,
+            timer = null;
 
         let randomNum = Math.floor(Math.random() * 4);
 
@@ -24,27 +28,42 @@ Page({
             success(result) {
                 if (result) {
                     if(result['type'] == 'me'){
-                        util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
+                        // util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
                         that.setData({
                             userInfo: result['data'],
                             logged: true,
-                            other: false
+                            other: false,
+                            tipFlag: true,
+                            tipTitle: config['msg']['me']['title'],
+                            tipMsg: config['msg']['me']['msg']
                         });
                     }else if(result['type'] == 'love'){
-                        util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
+                        // util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
                         that.setData({
                             userInfo: result['data'],
                             logged: true,
-                            other: false
+                            other: false,
+                            tipFlag: true,
+                            tipTitle: config['msg']['love'][randomNum]['title'],
+                            tipMsg: config['msg']['love'][randomNum]['msg']
                         });
                     }else{
-                        util.showSuccess('登录成功');
+                        // util.showSuccess('登录成功');
                         that.setData({
                             userInfo: result,
                             logged: true,
-                            other: true
+                            other: true,
+                            tipFlag: true,
+                            tipTitle: 'Hello',
+                            tipMsg: '欢迎来到虎萄世界'
                         });
                     }
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        that.setData({
+                            tipFlag: false
+                        });
+                    }, 2000);
                     that.getFolder();
                 } else {
                     // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
@@ -53,28 +72,44 @@ Page({
                         login: true,
                         success(result) {
                             if(result['data']['data']['openId'] == config['limit']['me']){
-                                util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
+                                // util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
                                 // util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
                                 that.setData({
                                     userInfo: result.data.data,
                                     logged: true,
-                                    other: false
+                                    other: false,
+                                    tipFlag: true,
+                                    tipTitle: config['msg']['me']['title'],
+                                    tipMsg: config['msg']['me']['msg']
                                 });
                             }else if(result['data']['data']['openId'] == config['limit']['love']){
-                                util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
+                                // util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
                                 that.setData({
                                     userInfo: result['data']['data'],
                                     logged: true,
-                                    other: false
+                                    other: false,
+                                    tipFlag: true,
+                                    tipTitle: config['msg']['love'][randomNum]['title'],
+                                    tipMsg: config['msg']['love'][randomNum]['msg']
                                 });
                             }else{
-                                util.showSuccess('登录成功');
+                                // util.showSuccess('登录成功');
                                 that.setData({
                                     userInfo: result.data.data,
                                     logged: true,
-                                    other: true
+                                    other: true,
+                                    tipFlag: true,
+                                    tipTitle: 'Hello',
+                                    tipMsg: '欢迎来到虎萄世界'
                                 });
                             }
+                            clearTimeout(timer);
+                            timer = setTimeout(() => {
+                                that.setData({
+                                    tipFlag: false
+                                });
+                            }, 5000);
+
                             that.getFolder();
                         },
 

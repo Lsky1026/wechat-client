@@ -20,3 +20,12 @@
         </view>
     </view>
 </view>
+
+<view class="modal-tip {{tipFlag ? 'active' : ''}}">
+    <view class="modal-box">
+        <view class="common-text">{{tipTitle}}</view>
+    </view>
+    <view class="modal-box">
+        <view class="common-text">{{tipMsg}}</view>
+    </view>
+</view>
