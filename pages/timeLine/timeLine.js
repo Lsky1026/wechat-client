@@ -17,6 +17,8 @@ Page({
         util.showBusy('正在登录');
         var that = this;
 
+        let randomNum = Math.floor(Math.random() * 4);
+
         // 调用登录接口
         qcloud.login({
             success(result) {
@@ -29,7 +31,7 @@ Page({
                             other: false
                         });
                     }else if(result['type'] == 'love'){
-                        util.showModel('终于回来了', '冬瓜的小仙女');
+                        util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
                         that.setData({
                             userInfo: result['data'],
                             logged: true,
@@ -52,13 +54,14 @@ Page({
                         success(result) {
                             if(result['data']['data']['openId'] == config['limit']['me']){
                                 util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
+                                // util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
                                 that.setData({
                                     userInfo: result.data.data,
                                     logged: true,
                                     other: false
                                 });
                             }else if(result['data']['data']['openId'] == config['limit']['love']){
-                                util.showModel('终于回来了', '冬瓜的小仙女');
+                                util.showModel(config['msg']['love'][randomNum]['title'], config['msg']['love'][randomNum]['msg']);
                                 that.setData({
                                     userInfo: result['data']['data'],
                                     logged: true,
