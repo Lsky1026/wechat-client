@@ -2,6 +2,7 @@
 .time-line-container{
     box-sizing: border-box;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .time-line-item{
