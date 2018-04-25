@@ -116,9 +116,11 @@ var login = function login(options) {
                             Session.set(res.skey);
                             options.success({'type': 'love', 'data': userInfo});
                         }else{
-                            var errorMessage = '登录失败(权限问题)：您暂无权限登录该小程序！';
-                            var noSessionError = new LoginError(constants.ERR_LOGIN_FAILED, errorMessage);
-                            options.fail(noSessionError);
+                            // var errorMessage = '登录失败(权限问题)：您暂无权限登录该小程序！';
+                            // var noSessionError = new LoginError(constants.ERR_LOGIN_FAILED, errorMessage);
+                            // options.fail(noSessionError);
+                            Session.set(res.skey);
+                            options.success({'type': 'other', 'data': userInfo});
                         }
                     } else {
                         var errorMessage = '登录失败(' + data.error + ')：' + (data.message || '未知错误');

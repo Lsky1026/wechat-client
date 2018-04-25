@@ -8,7 +8,8 @@ Page({
         list: [],
         width: 0,
         logged: false,
-        userInfo: {}
+        userInfo: {},
+        other: false
     },
     onLoad: function () {
         if (this.data.logged) return;
@@ -21,22 +22,25 @@ Page({
             success(result) {
                 if (result) {
                     if(result['type'] == 'me'){
-                        util.showModel('欢迎回来', '帅帅的冬瓜');
+                        util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
                         that.setData({
                             userInfo: result['data'],
-                            logged: true
+                            logged: true,
+                            other: false
                         });
                     }else if(result['type'] == 'love'){
                         util.showModel('终于回来了', '冬瓜的小仙女');
                         that.setData({
                             userInfo: result['data'],
-                            logged: true
+                            logged: true,
+                            other: false
                         });
                     }else{
                         util.showSuccess('登录成功');
                         that.setData({
                             userInfo: result,
-                            logged: true
+                            logged: true,
+                            other: true
                         });
                     }
                     that.getFolder();
@@ -47,22 +51,25 @@ Page({
                         login: true,
                         success(result) {
                             if(result['data']['data']['openId'] == config['limit']['me']){
-                                util.showModel('欢迎回来', '帅帅的冬瓜');
+                                util.showModel(config['msg']['me']['title'], config['msg']['me']['msg']);
                                 that.setData({
                                     userInfo: result.data.data,
-                                    logged: true
+                                    logged: true,
+                                    other: false
                                 });
                             }else if(result['data']['data']['openId'] == config['limit']['love']){
                                 util.showModel('终于回来了', '冬瓜的小仙女');
                                 that.setData({
                                     userInfo: result['data']['data'],
-                                    logged: true
+                                    logged: true,
+                                    other: false
                                 });
                             }else{
                                 util.showSuccess('登录成功');
                                 that.setData({
                                     userInfo: result.data.data,
-                                    logged: true
+                                    logged: true,
+                                    other: true
                                 });
                             }
                             that.getFolder();
@@ -128,10 +135,13 @@ Page({
             return;
         }
 
-        wx.navigateTo({
-            'url': '../waterfall/waterfall?dir=' + dateParams + '&imageWidth=' + this.data.width
-        });
-        
+        if(!this.data.other){
+            wx.navigateTo({
+                'url': '../waterfall/waterfall?dir=' + dateParams + '&imageWidth=' + this.data.width
+            });
+        }else{
+            util.showModel('Notice', '您暂无权限进入属于我和小葡萄的独享页面');
+        }
         // console.log(dateParams);
     }
 });
