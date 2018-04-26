@@ -14,7 +14,10 @@ Page({
         lock: false,
         doubleLock: false,
         currentCount: 0,    // 全部图片数量
-        loadCount: 0    // 已加载图片数量
+        loadCount: 0,    // 已加载图片数量
+        showOriginal: true,
+        originalHeight: 0,
+        originalSrc: ''
     },
     onLoad: function (opts) {
         // console.log(opts);
@@ -80,13 +83,15 @@ Page({
             if(leftHei == rightHei || leftHei < rightHei){
                 leftList.push({
                     src: config.service.imageAddr + '/' + that.data.dir + '/JPEG/' + obj.name,
-                    height: scaleHei
+                    height: scaleHei,
+                    dataSrc: config.service.imageAddr + '/' + that.data.dir + '/' + obj.name
                 });
                 leftHei += scaleHei;
             }else if(leftHei > rightHei){
                 rightList.push({
                     src: config.service.imageAddr + '/' + that.data.dir + '/JPEG/' + obj.name,
-                    height: scaleHei
+                    height: scaleHei,
+                    dataSrc: config.service.imageAddr + '/' + that.data.dir + '/' + obj.name
                 });
                 rightHei += scaleHei;
             }
@@ -157,11 +162,40 @@ Page({
     loadImage: function (ev) {
         // console.log(ev);
         let that = this,
-            loadCount = that.data.loadCount;
+            loadCount = that.data.loadCount,
+            currentCount = that.data.currentCount;
 
         loadCount++;
-        that.setData({
-            'loadCount': loadCount
-        });
+
+        if((currentCount < 20 )|| (currentCount == loadCount)){
+            that.setData({
+                'loadCount': loadCount,
+                'lock': false,
+                'doubleLock': true
+            });
+        }else{
+            that.setData({
+                'loadCount': loadCount
+            });
+        }
+        
+    },
+    clickImage: function (ev) {
+        // console.log(ev);
+        let dataSet = ev['target']['dataset'];
+        this.setData({
+            'showOriginal': false,
+            'originalHeight': ( (280 * dataSet['hei']) / 180 ),
+            'originalSrc': dataSet['src']
+        })
+    },
+    modalClick: function (ev) {
+        // console.log(ev);
+        if(ev.target.id == 'show-image'){
+            this.setData({
+                'showOriginal': true,
+                'originalSrc': ''
+            });
+        }
     }
 });

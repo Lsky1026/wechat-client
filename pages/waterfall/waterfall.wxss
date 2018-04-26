@@ -45,3 +45,37 @@
     background-size: cover;
     overflow: hidden;
 }
+
+.modal-show-image{
+    box-sizing: border-box;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0, .3);
+    z-index: 100;
+    display: block;
+}
+
+.modal-show-image .modal-container{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    /* width:  */
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-show-image .image-box{
+    box-sizing: border-box;
+    width: 280px;
+    border-radius: 6px;
+}
+.modal-show-image .show-image{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 6px;
+}

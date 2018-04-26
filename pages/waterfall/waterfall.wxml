@@ -2,12 +2,12 @@
     <view class="scroll-container">
         <view class="scroll-ul-box">
             <view wx:for="{{leftImageArr}}" wx:key="item.id">
-                <image class="sroll-image" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage"></image>
+                <image class="sroll-image" data-hei="{{item.height}}" data-src="{{item.dataSrc}}" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage" bindtap="clickImage"></image>
             </view>
         </view>
         <view class="scroll-ul-box">
             <view wx:for="{{rightImageArr}}" wx:key="item.id">
-                <image class="sroll-image" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage"></image>
+                <image class="sroll-image" data-hei="{{item.height}}" data-src="{{item.dataSrc}}" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage" bindtap="clickImage"></image>
             </view>
         </view>
     </view>
@@ -15,3 +15,11 @@
         <image src="../../images/loadding.gif" class="image-loading"></image>
     </view>
 </scroll-view>
+
+<view class="modal-show-image" hidden="{{showOriginal}}" bindtap="modalClick">
+    <view class="modal-container" id="show-image">
+        <view class="image-box" style="height: {{originalHeight}}px">
+            <image class="show-image" src="{{originalSrc}}"></image>
+        </view>
+    </view>
+</view>
