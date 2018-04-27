@@ -11,8 +11,8 @@ Page({
         pages: 1,
         leftHei: 0,
         rightHei: 0,
+        allImages: 0,
         lock: false,
-        doubleLock: false,
         currentCount: 0,    // 全部图片数量
         loadCount: 0,    // 已加载图片数量
         showOriginal: true,
@@ -41,10 +41,12 @@ Page({
                 if(res.data && res.data.code){
                     if(!util.isEmpty(res.data.list)){
                         that.handleImageList(opts.imageWidth, res.data.list);
+                        that.setData({
+                            'allImages': res.data.count
+                        })
                     }else{
                         that.setData({
-                            'lock': false,
-                            'doubleLock': true
+                            'lock': false
                         });
                     }
                     
@@ -114,7 +116,7 @@ Page({
         if(that.data.currentCount != that.data.loadCount){
             return;
         }
-        if(that.data.doubleLock){
+        if(that.data.allImages == that.data.loadCount){
             return;
         }
 
@@ -139,8 +141,7 @@ Page({
                             });
                         }else{
                             that.setData({
-                                'lock': false,
-                                'doubleLock': true
+                                'lock': false
                             });
                         }
                         
@@ -163,15 +164,14 @@ Page({
         // console.log(ev);
         let that = this,
             loadCount = that.data.loadCount,
-            currentCount = that.data.currentCount;
+            allImages = that.data.allImages;
 
         loadCount++;
 
-        if((currentCount < 20 )|| (currentCount == loadCount)){
+        if(allImages == loadCount){
             that.setData({
                 'loadCount': loadCount,
-                'lock': false,
-                'doubleLock': true
+                'lock': false
             });
         }else{
             that.setData({
