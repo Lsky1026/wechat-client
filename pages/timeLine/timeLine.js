@@ -54,8 +54,8 @@ Page({
                             logged: true,
                             other: true,
                             tipFlag: true,
-                            tipTitle: 'Hello',
-                            tipMsg: '欢迎来到虎萄世界'
+                            tipTitle: config['msg']['default']['title'],
+                            tipMsg: config['msg']['default']['msg']
                         });
                     }
                     clearTimeout(timer);
