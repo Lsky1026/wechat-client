@@ -29,38 +29,61 @@ Page({
             lock:true
         });
         util.showBusy('载入中');
-        let options = {
-            'url': config.service.waterfall,
-            'method': 'GET',
-            'data': {
-                'dirName': opts.dir,
-                'pages': that.data.pages
-            },
-            success: function (res) {
-                // console.log(res);
-                if(res.data && res.data.code){
-                    if(!util.isEmpty(res.data.list)){
-                        that.handleImageList(opts.imageWidth, res.data.list);
-                        that.setData({
-                            'allImages': res.data.count
-                        })
-                    }else{
-                        that.setData({
-                            'lock': false
-                        });
-                    }
+        // let options = {
+        //     'url': config.service.waterfall,
+        //     'method': 'GET',
+        //     'data': {
+        //         'dirName': opts.dir,
+        //         'pages': that.data.pages
+        //     },
+        //     success: function (res) {
+        //         // console.log(res);
+        //         if(res.data && res.data.code){
+        //             if(!util.isEmpty(res.data.list)){
+        //                 that.handleImageList(opts.imageWidth, res.data.list);
+        //                 that.setData({
+        //                     'allImages': res.data.count
+        //                 })
+        //             }else{
+        //                 that.setData({
+        //                     'lock': false
+        //                 });
+        //             }
                     
-                }else{
-                    util.showModel('error', res);
-                }
-            },
-            fail: function (res) {
-                // console.log(res);
-                util.showModel('error', res);
-            }
-        };
+        //         }else{
+        //             util.showModel('error', res);
+        //         }
+        //     },
+        //     fail: function (res) {
+        //         // console.log(res);
+        //         util.showModel('error', res);
+        //     }
+        // };
 
-        wx.request(options);
+        // wx.request(options);
+
+        util.wxRequest(config.service.waterfall, {
+            'dirName': opts.dir,
+            'pages': that.data.pages
+        }).then(resolve => {
+            if(resolve.code){
+                if(!util.isEmpty(resolve.list)){
+                    that.handleImageList(opts.imageWidth, resolve.list);
+                    that.setData({
+                        'allImages': resolve.count
+                    })
+                }else{
+                    that.setData({
+                        'lock': false
+                    });
+                }
+                
+            }else{
+                util.showModel('error', resolve);
+            }
+        }).catch(err => {
+            util.showModel('error', err);
+        })
 
         wx.setNavigationBarTitle({
             'title': opts.dir
@@ -124,41 +147,59 @@ Page({
             'lock': true,
         });
 
-        let pages = that.data.pages + 1,
-            options = {
-                'url': config.service.waterfall,
-                'method': 'GET',
-                'data': {
-                    'dirName': that.data.dir,
-                    'pages': pages
-                },
-                success: function (res) {
-                    if(res.data && res.data.code){
-                        if(!util.isEmpty(res.data.list)){
-                            that.handleImageList(that.data.imageWidth, res.data.list);
-                            that.setData({
-                                pages: pages
-                            });
-                        }else{
-                            that.setData({
-                                'lock': false
-                            });
-                        }
+        let pages = that.data.pages + 1
+        //     options = {
+        //         'url': config.service.waterfall,
+        //         'method': 'GET',
+        //         'data': {
+        //             'dirName': that.data.dir,
+        //             'pages': pages
+        //         },
+        //         success: function (res) {
+        //             if(res.data && res.data.code){
+        //                 if(!util.isEmpty(res.data.list)){
+        //                     that.handleImageList(that.data.imageWidth, res.data.list);
+        //                     that.setData({
+        //                         pages: pages
+        //                     });
+        //                 }else{
+        //                     that.setData({
+        //                         'lock': false
+        //                     });
+        //                 }
                         
-                    }else{
-                        util.showModel('获取图片失败', res);
-                        that.setData({
-                            pages: pages
-                        });
-                    }
-                },
-                fail: function (res) {
-                    util.showModel('数据加载失败', res);
-                }
-            };
+        //             }else{
+        //                 util.showModel('获取图片失败', res);
+        //                 that.setData({
+        //                     pages: pages
+        //                 });
+        //             }
+        //         },
+        //         fail: function (res) {
+        //             util.showModel('数据加载失败', res);
+        //         }
+        //     };
 
-        // console.log(options);
-        wx.request(options);
+        // // console.log(options);
+        // wx.request(options);
+
+        util.wxRequest(config.service.waterfall, {
+            'dirName': that.data.dir,
+            'pages': pages
+        }).then(resolve => {
+            if(!util.isEmpty(resolve['list'])){
+                that.handleImageList(that.data.imageWidth, resolve.list);
+                that.setData({
+                    pages: pages
+                });
+            }else{
+                that.setData({
+                    'lock': false
+                })
+            }
+        }).catch(err => {
+            util.showModel('数据加载失败', err);
+        })
     },
     loadImage: function (ev) {
         // console.log(ev);

@@ -123,7 +123,6 @@ Page({
 
             fail(error) {
                 util.showModel('登录失败', error);
-                console.log('登录失败', error);
             }
         });
 
@@ -145,26 +144,12 @@ Page({
     getFolder: function () {
         let that = this;
         // 获取文件夹
-        let options = {
-            url: config.service.timeLine,
-            method: 'POST',
-            success: function (res) {
-                if(res.data && res.data.code){
-                    that.setData({
-                        'list': res.data.list
-                    });
-                    wx.hideToast();
-                }else{
-                    util.showModel('error', res);
-                }
-            },
-            fail: function (res) {
-                // console.log(res);
-                util.showModel('error', res);
-            }
-        };
-
-        wx.request(options);
+        util.wxRequest(config.service.timeLine, {}, 'POST').then(resolve => {
+            that.setData({'list': resolve['list']})
+            wx.hideToast();
+        }).catch(err => {
+            util.showModel('error', err);
+        })
     },
     jumpTo: function (ev) {
         let dateParams = ev.currentTarget.dataset.tar;

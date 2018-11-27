@@ -87,4 +87,31 @@ var isEmpty = (data) => {
     return false;
 };
 
-module.exports = { formatTime, showBusy, showTip, showSuccess, showModel, getType, deepCopy, isEmpty }
+/**
+ * 封装微信请求  使用 promise
+ * @param {String} method 请求方式
+ * @param {String} url 请求地址
+ * @param {Object} data 参数
+ * @param {Promise} promise
+ */
+var wxRequest = (url = '', data = {}, method = '') => {
+    return new Promise ((resolve, reject) => {
+        wx.request({
+            url: url,
+            data: data,
+            method: isEmpty(method) ? 'GET' : method.toLocaleUpperCase(),
+            success: function (res) {
+                if(res['statusCode'] == 200 && res['errMsg'].indexOf(':ok') != -1){
+                    resolve(res['data']);
+                }else{
+                    reject(res);
+                }
+            },
+            fail: function (res) {
+                reject(res);
+            }
+        });
+    })
+}
+
+module.exports = { formatTime, showBusy, showTip, showSuccess, showModel, getType, deepCopy, isEmpty, wxRequest }
