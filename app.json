@@ -13,7 +13,7 @@
     "navigationBarTitleText": "Our time",
     "navigationBarTextStyle":"black"
   },
-  "tarBar": {
+  "tabBar": {
     "color": "#BDBDBD",
     "selectedColor": "#333333",
     "backgroundColor": "#CACACA",
