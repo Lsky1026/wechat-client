@@ -1,9 +1,10 @@
 {
   "pages":[
       "pages/timeLine/timeLine",
+      "pages/uploadImg/uploadImg",
       "pages/waterfall/waterfall",
-    "pages/index/index",
-    "pages/addCgi/addCgi"
+      "pages/index/index",
+      "pages/addCgi/addCgi"
   ],
   "window":{
     "backgroundColor":"#F6F6F6",
@@ -11,5 +12,22 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "Our time",
     "navigationBarTextStyle":"black"
+  },
+  "tarBar": {
+    "color": "#BDBDBD",
+    "selectedColor": "#333333",
+    "backgroundColor": "#CACACA",
+    "list": [{
+      "pagePath": "pages/timeLine/timeLine",
+      "text": "timeLine",
+      "iconPath": "images/shijianzhou.png",
+      "selectedIconPath": "images/shijianzhou_selected.png"
+    },
+    {
+      "pagePath": "pages/uploadImg/uploadImg",
+      "text": "uploadImg",
+      "iconPath": "images/shangchuan.png",
+      "selectedIconPath": "images/shangchuan_selected.png"
+    }]
   }
 }
