@@ -1,7 +1,7 @@
 <view class="uploadImg-container">
     <view class="uploadImg-title">今天是: {{today}}</view>
     <view class="uploadImg-container">
-        <view class="uploadImg-add">
+        <view class="uploadImg-add" bindtap="chooseImg">
             <image src="../../images/jia.png" mode="aspectFit" class="jia-img"/>
         </view>
         <view class="uploadImg-box"></view>
