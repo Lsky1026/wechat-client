@@ -45,15 +45,11 @@ var showModel = (title, content) => {
     })
 };
 
-var getType = (obj) => {
-    /**
-     * @function getType
-     * @description get obj type
-     * @param {*} obj
-     * @return {*} type
-     * @author lsky
-     */
-    return obj.__proto__.constructor.name;
+var getType = (data) => {
+    let _type = Object.prototype.toString.call(data),
+        startIndex = _type.indexOf(' '),
+        endIndex = _type.indexOf(']');
+    return _type.substring((startIndex + 1), endIndex).toLowerCase();
 };
 
 // 工具方法
@@ -114,4 +110,35 @@ var wxRequest = (url = '', data = {}, method = '') => {
     })
 }
 
-module.exports = { formatTime, showBusy, showTip, showSuccess, showModel, getType, deepCopy, isEmpty, wxRequest }
+/**
+ * @param {Date} date 日期
+ * @param {String} format 格式
+ * @return {String} format
+ */
+var dateFormat = (format, date = null) => {
+    if(isEmpty(date) || getType(format) != 'string'){
+        throw new Error("format is undefiend or type is Error");
+        return '';
+    }
+
+    let _date = isEmpty(date) ? new Date() : ((date instanceof Date || getType(date) == 'string' || getType(date) == 'number') ? new Date(date) : new Date());
+
+    let formatReg = {
+        'y+': _date.getFullYear(),
+        'M+': _date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds()
+    }
+
+    for(var reg in formatReg){
+        if(new RegExp(reg).test(format)){
+              var match = RegExp.lastMatch;
+              format = format.replace(match, formatReg[reg]< 10 ? '0'+formatReg[reg]: formatReg[reg].toString() );
+        }
+      }
+    return format
+}
+
+module.exports = { formatTime, showBusy, showTip, showSuccess, showModel, getType, deepCopy, isEmpty, wxRequest, dateFormat }

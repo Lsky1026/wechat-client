@@ -1,7 +1,7 @@
 {
   "pages":[
-      "pages/timeLine/timeLine",
       "pages/uploadImg/uploadImg",
+      "pages/timeLine/timeLine",
       "pages/waterfall/waterfall",
       "pages/index/index",
       "pages/addCgi/addCgi"
@@ -15,8 +15,8 @@
   },
   "tabBar": {
     "color": "#BDBDBD",
-    "selectedColor": "#333333",
-    "backgroundColor": "#CACACA",
+    "selectedColor": "#00AAEE",
+    "backgroundColor": "#f4f4f4",
     "list": [{
       "pagePath": "pages/timeLine/timeLine",
       "text": "timeLine",
@@ -29,5 +29,8 @@
       "iconPath": "images/shangchuan.png",
       "selectedIconPath": "images/shangchuan_selected.png"
     }]
+  },
+  "networkTimeout": {
+    "uploadFile": 20000
   }
 }
