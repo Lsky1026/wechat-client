@@ -2,7 +2,7 @@
     <view class="uploadImg-title">今天是: {{today}}</view>
     <view class="uploadImg-container">
         <view class="uploadImg-add">
-            <image src="../../images/jia.png" mode="aspectFit"/>
+            <image src="../../images/jia.png" mode="aspectFit" class="jia-img"/>
         </view>
         <view class="uploadImg-box"></view>
     </view>

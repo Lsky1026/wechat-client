@@ -36,3 +36,12 @@
     justify-content: center;
     align-items: center;
 }
+
+.uploadImg-add .jia-img{
+    box-sizing: border-box;
+    width: 75rpx;
+    height: 75rpx;
+    background-color: transparent;
+    outline: none;
+    margin: 0;
+}
