@@ -9,9 +9,10 @@ Page({
     chooseImg (){
         let ctx = this;
         
+        return;
         wx.chooseImage({
             count: 1,
-            sizeType: ['compressed'],   // 压缩图
+          sizeType: ['original'],   // 压缩图
             sourceType: ['album', 'camera'],    // 来源 ： 相册， 相机
             success: function (res) {
                 // console.log(res)
