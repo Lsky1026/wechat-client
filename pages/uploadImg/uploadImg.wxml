@@ -1,5 +1,9 @@
 <view class="uploadImg-container">
-    <view class="uploadImg-title">今天是: {{today}}</view>
+    <view class="uploadImg-date">
+        <picker mode="date" value="{{date}}" start="2017-09-03" bindchange="pickerDate">
+            <view class="uploadImg-title">当前日期: {{date}}</view>
+        </picker>
+    </view>
     <view class="uploadImg-container">
         <view class="uploadImg-add" bindtap="chooseImg">
             <image src="../../images/jia.png" mode="aspectFit" class="jia-img"/>

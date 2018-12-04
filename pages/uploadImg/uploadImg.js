@@ -4,12 +4,10 @@ let config = require('../../config');
 
 Page({
     data: {
-        today: util.dateFormat('yyyy-MM-dd', new Date())
+        date: util.dateFormat('yyyy-MM-dd', new Date())
     },
     chooseImg (){
         let ctx = this;
-        
-        return;
         wx.chooseImage({
             count: 1,
           sizeType: ['original'],   // 压缩图
@@ -46,6 +44,11 @@ Page({
             fail: function (res) {
                 util.showModel('上传失败', res);
             }
+        })
+    },
+    pickerDate (ev){
+        this.setData({
+            'date': ev.detail.value
         })
     }
 });
