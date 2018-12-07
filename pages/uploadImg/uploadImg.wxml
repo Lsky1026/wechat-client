@@ -8,6 +8,21 @@
         <view class="uploadImg-add" bindtap="chooseImg">
             <image src="../../images/jia.png" mode="aspectFit" class="jia-img"/>
         </view>
-        <view class="uploadImg-box"></view>
+        <view class="uploadImg-box">
+            <view class="view-temp">
+                <view class="scroll-container">
+                    <view class="scroll-ul-box">
+                        <!-- <view wx:for="{{leftImageArr}}" wx:key="item.id">
+                            <image class="sroll-image" data-hei="{{item.height}}" data-src="{{item.dataSrc}}" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage" bindtap="clickImage"></image>
+                        </view> -->
+                    </view>
+                    <view class="scroll-ul-box">
+                        <!-- <view wx:for="{{rightImageArr}}" wx:key="item.id">
+                            <image class="sroll-image" data-hei="{{item.height}}" data-src="{{item.dataSrc}}" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage" bindtap="clickImage"></image>
+                        </view> -->
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
 </view>

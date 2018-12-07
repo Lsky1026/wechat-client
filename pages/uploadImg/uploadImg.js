@@ -4,7 +4,19 @@ let config = require('../../config');
 
 Page({
     data: {
-        date: util.dateFormat('yyyy-MM-dd', new Date())
+        date: util.dateFormat('yyyy-MM-dd', new Date()),
+        list: {},
+        width: 0
+    },
+    onLoad (){
+        let ctx = this;
+        wx.getSystemInfo({
+            success: (res) => {
+                ctx.setData({
+                    width: res.windowWidth * 0.48
+                });
+            }
+        });
     },
     chooseImg (){
         let ctx = this;
@@ -29,6 +41,7 @@ Page({
                             let _res = JSON.parse(result['data']);
                             if(_res['code'] && _res['image']){
                                 util.showSuccess("上传成功!")
+                                
                             }else{
                                 util.showModel('上传失败', result);
                             }
@@ -45,6 +58,39 @@ Page({
                 util.showModel('上传失败', res);
             }
         })
+    },
+    handleImage (obj){
+        let ctx = this;
+        let temp = util.deepCopy(ctx.list);
+
+        let scaleHei = obj['imageHeight'] * (ctx.width / obj['imageWidth']);
+
+        let imageObj = {
+            'src': `${config.service.imageAddr}/${ctx.date}/JPEG/${obj['imageName']}`,
+            'height': scaleHei
+        };
+
+        if(temp.hasOwnProperty(ctx.date)){
+            let tar = temp[ctx.date];
+            if(tar['leftHei'] > tar['rightHei']){
+                tar['rightImageArr'].push(imageObj);
+                tar['rightHei'] = tar['rightHei'] + scaleHei;
+            }else{
+                tar['leftImageArr'].push(imageObj);
+                tar['leftHei'] = tar['leftHei'] + scaleHei;
+            }
+        }else{
+            let options = {
+                'leftHei': scaleHei,
+                'rightHei': 0,
+                'leftImageArr': [imageObj],
+                'rightImageArr': [],
+                'dir': ctx.date
+            };
+            temp[ctx.date] = options;
+        }
+
+        ctx.setData({'list': temp});
     },
     pickerDate (ev){
         this.setData({
