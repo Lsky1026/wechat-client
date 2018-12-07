@@ -39,9 +39,9 @@ Page({
                         // console.log(result);
                         try {
                             let _res = JSON.parse(result['data']);
-                            if(_res['code'] && _res['image']){
+                            if(_res['code']){
                                 util.showSuccess("上传成功!")
-                                
+                                ctx.handleImage(_res);
                             }else{
                                 util.showModel('上传失败', result);
                             }
@@ -61,17 +61,17 @@ Page({
     },
     handleImage (obj){
         let ctx = this;
-        let temp = util.deepCopy(ctx.list);
+        let temp = util.deepCopy(ctx.data.list);
 
-        let scaleHei = obj['imageHeight'] * (ctx.width / obj['imageWidth']);
+        let scaleHei = obj['imageHeight'] * (ctx.data.width / obj['imageWidth']);
 
         let imageObj = {
-            'src': `${config.service.imageAddr}/${ctx.date}/JPEG/${obj['imageName']}`,
+            'src': `${config.service.imageAddr}/${ctx.data.date}/JPEG/${obj['imageName']}`,
             'height': scaleHei
         };
 
-        if(temp.hasOwnProperty(ctx.date)){
-            let tar = temp[ctx.date];
+        if(temp.hasOwnProperty(ctx.data.date)){
+            let tar = temp[ctx.data.date];
             if(tar['leftHei'] > tar['rightHei']){
                 tar['rightImageArr'].push(imageObj);
                 tar['rightHei'] = tar['rightHei'] + scaleHei;
@@ -85,9 +85,9 @@ Page({
                 'rightHei': 0,
                 'leftImageArr': [imageObj],
                 'rightImageArr': [],
-                'dir': ctx.date
+                'dir': ctx.data.date
             };
-            temp[ctx.date] = options;
+            temp[ctx.data.date] = options;
         }
 
         ctx.setData({'list': temp});
