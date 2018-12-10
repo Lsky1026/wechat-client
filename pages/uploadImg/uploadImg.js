@@ -34,6 +34,9 @@ Page({
                     },
                     url: config['service']['uploadUrl'],
                     name: 'uploadImg',
+                    formData: {
+                        'dir': ctx.data.date
+                    },
                     filePath: tempFilePath,
                     success: function (result) {
                         // console.log(result);
