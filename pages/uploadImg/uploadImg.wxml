@@ -10,16 +10,16 @@
         </view>
         <view class="uploadImg-box">
             <view class="view-temp">
-                <view class="scroll-container">
+                <view class="scroll-container" wx:for="{{list}}" wx:for-index="key" wx:for-item="arr">
                     <view class="scroll-ul-box">
-                        <!-- <view wx:for="{{leftImageArr}}" wx:key="item.id">
-                            <image class="sroll-image" data-hei="{{item.height}}" data-src="{{item.dataSrc}}" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage" bindtap="clickImage"></image>
-                        </view> -->
+                        <view wx:for="{{arr.leftImageArr}}" wx:key="item.id">
+                            <image class="sroll-image" data-hei="{{item.height}}" src="{{item.src}}" style="height: {{item.height}}px;"></image>
+                        </view>
                     </view>
                     <view class="scroll-ul-box">
-                        <!-- <view wx:for="{{rightImageArr}}" wx:key="item.id">
-                            <image class="sroll-image" data-hei="{{item.height}}" data-src="{{item.dataSrc}}" src="{{item.src}}" style="height: {{item.height}}px;" bindload="loadImage" bindtap="clickImage"></image>
-                        </view> -->
+                        <view wx:for="{{arr.rightImageArr}}" wx:key="item.id">
+                            <image class="sroll-image" data-hei="{{item.height}}" src="{{item.src}}" style="height: {{item.height}}px;"></image>
+                        </view>
                     </view>
                 </view>
             </view>
